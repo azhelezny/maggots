@@ -50,56 +50,56 @@ SELECT count(*) as INDEXES from sys.SYSCONGLOMERATES where isindex=true and CONG
 
 SELECT count(*) from sys.SYSCONSTRAINTS where type in ('P', 'U', 'F') and tableid in (SELECT tableid from sys.SYSTABLES where tablename = 'TABLE_0') and schemaid in (SELECT SCHEMAID from sys.SYSSCHEMAS WHERE SCHEMANAME = 'INC_BACKUP_SCHEMA');
 -- 5 expected
-INSERT INTO inc_backup_schema.TABLE_0(pk_col, nfk_col, ufk_col, nun_col, uun_col, inx_col) VALUES (NULL, 'a', 'a', '1', '1', '(');
+INSERT INTO inc_backup_schema.TABLE_0(pk_col, nfk_col, ufk_col, nun_col, uun_col, inx_col) VALUES (NULL, 'a', 'a', '8', '8', '(');
 -- expected ERROR 23502: Column 'PK_COL' cannot accept a NULL value.
-INSERT INTO inc_backup_schema.TABLE_0(pk_col, nfk_col, ufk_col, nun_col, uun_col, inx_col) VALUES ('T', 'a', 'a', '1', '4', '(');
+INSERT INTO inc_backup_schema.TABLE_0(pk_col, nfk_col, ufk_col, nun_col, uun_col, inx_col) VALUES ('T', 'a', 'a', '1', '8', '(');
 -- expected ERROR 23505: The statement was aborted because it would have caused a duplicate key value in a unique or primary key constraint or unique index identified by 'UN_NULLS' defined on 'TABLE_0'.
-INSERT INTO inc_backup_schema.TABLE_0(pk_col, nfk_col, ufk_col, nun_col, uun_col, inx_col) VALUES ('T', 'a', 'a', '4', '1', '(');
+INSERT INTO inc_backup_schema.TABLE_0(pk_col, nfk_col, ufk_col, nun_col, uun_col, inx_col) VALUES ('T', 'a', 'a', '8', '1', '(');
 -- expected ERROR 23505: The statement was aborted because it would have caused a duplicate key value in a unique or primary key constraint or unique index identified by 'SQL161213132957731' defined on 'TABLE_0'.
-INSERT INTO inc_backup_schema.TABLE_0(pk_col, nfk_col, ufk_col, nun_col, uun_col, inx_col) VALUES ('T', 'w', 'a', '1', '1', '(');
+INSERT INTO inc_backup_schema.TABLE_0(pk_col, nfk_col, ufk_col, nun_col, uun_col, inx_col) VALUES ('T', 'w', 'a', '8', '8', '(');
 -- expected ERROR 23503: Operation on table 'TABLE_0' caused a violation of foreign key constraint 'FK_EMPTY' for key (NFK_COL).  The statement has been rolled back.
-INSERT INTO inc_backup_schema.TABLE_0(pk_col, nfk_col, ufk_col, nun_col, uun_col, inx_col) VALUES ('T', 'a', 'w', '1', '1', '(');
+INSERT INTO inc_backup_schema.TABLE_0(pk_col, nfk_col, ufk_col, nun_col, uun_col, inx_col) VALUES ('T', 'a', 'w', '8', '8', '(');
 -- expected ERROR 23503: Operation on table 'TABLE_0' caused a violation of foreign key constraint 'SQL161213132940800' for key (UFK_COL).  The statement has been rolled back.
 
 
 SELECT count(*) from sys.SYSCONSTRAINTS where type in ('P', 'U', 'F') and tableid in (SELECT tableid from sys.SYSTABLES where tablename = 'TABLE_0') and schemaid in (SELECT SCHEMAID from sys.SYSSCHEMAS WHERE SCHEMANAME = 'SPLICE');
 -- 5 expected
-INSERT INTO TABLE_0(pk_col, nfk_col, ufk_col, nun_col, uun_col, inx_col) VALUES (NULL, 'a', 'a', '1', '1', '(');
+INSERT INTO TABLE_0(pk_col, nfk_col, ufk_col, nun_col, uun_col, inx_col) VALUES (NULL, 'a', 'a', '8', '8', '(');
 -- expected ERROR 23502: Column 'PK_COL' cannot accept a NULL value.
-INSERT INTO TABLE_0(pk_col, nfk_col, ufk_col, nun_col, uun_col, inx_col) VALUES ('T', 'a', 'a', '1', '4', '(');
+INSERT INTO TABLE_0(pk_col, nfk_col, ufk_col, nun_col, uun_col, inx_col) VALUES ('T', 'a', 'a', '1', '8', '(');
 -- expected ERROR 23505: The statement was aborted because it would have caused a duplicate key value in a unique or primary key constraint or unique index identified by 'UN_NULLS' defined on 'TABLE_0'.
-INSERT INTO TABLE_0(pk_col, nfk_col, ufk_col, nun_col, uun_col, inx_col) VALUES ('T', 'a', 'a', '4', '1', '(');
+INSERT INTO TABLE_0(pk_col, nfk_col, ufk_col, nun_col, uun_col, inx_col) VALUES ('T', 'a', 'a', '8', '1', '(');
 -- expected ERROR 23505: The statement was aborted because it would have caused a duplicate key value in a unique or primary key constraint or unique index identified by 'SQL161213132957731' defined on 'TABLE_0'.
-INSERT INTO TABLE_0(pk_col, nfk_col, ufk_col, nun_col, uun_col, inx_col) VALUES ('T', 'w', 'a', '1', '1', '(');
+INSERT INTO TABLE_0(pk_col, nfk_col, ufk_col, nun_col, uun_col, inx_col) VALUES ('T', 'w', 'a', '8', '8', '(');
 -- expected ERROR 23503: Operation on table 'TABLE_0' caused a violation of foreign key constraint 'FK_EMPTY' for key (NFK_COL).  The statement has been rolled back.
-INSERT INTO TABLE_0(pk_col, nfk_col, ufk_col, nun_col, uun_col, inx_col) VALUES ('T', 'a', 'w', '1', '1', '(');
+INSERT INTO TABLE_0(pk_col, nfk_col, ufk_col, nun_col, uun_col, inx_col) VALUES ('T', 'a', 'w', '8', '8', '(');
 -- expected ERROR 23503: Operation on table 'TABLE_0' caused a violation of foreign key constraint 'SQL161213132940800' for key (UFK_COL).  The statement has been rolled back.
 
 SELECT count(*) from sys.SYSCONSTRAINTS where type in ('P', 'U', 'F') and tableid in (SELECT tableid from sys.SYSTABLES where tablename = 'TABLE_1') and schemaid in (SELECT SCHEMAID from sys.SYSSCHEMAS WHERE SCHEMANAME = 'INC_BACKUP_SCHEMA');
 -- 5 expected
-INSERT INTO inc_backup_schema.TABLE_1(pk_col, nfk_col, ufk_col, nun_col, uun_col, inx_col) VALUES (NULL, 'a', 'a', '1', '1', '(');
+INSERT INTO inc_backup_schema.TABLE_1(pk_col, nfk_col, ufk_col, nun_col, uun_col, inx_col) VALUES (NULL, 'a', 'a', '8', '8', '(');
 -- expected ERROR 23502: Column 'PK_COL' cannot accept a NULL value.
-INSERT INTO inc_backup_schema.TABLE_1(pk_col, nfk_col, ufk_col, nun_col, uun_col, inx_col) VALUES ('T', 'a', 'a', '1', '4', '(');
+INSERT INTO inc_backup_schema.TABLE_1(pk_col, nfk_col, ufk_col, nun_col, uun_col, inx_col) VALUES ('T', 'a', 'a', '1', '8', '(');
 -- expected ERROR 23505: The statement was aborted because it would have caused a duplicate key value in a unique or primary key constraint or unique index identified by 'UN_NULLS' defined on 'TABLE_1'.
-INSERT INTO inc_backup_schema.TABLE_1(pk_col, nfk_col, ufk_col, nun_col, uun_col, inx_col) VALUES ('T', 'a', 'a', '4', '1', '(');
+INSERT INTO inc_backup_schema.TABLE_1(pk_col, nfk_col, ufk_col, nun_col, uun_col, inx_col) VALUES ('T', 'a', 'a', '8', '1', '(');
 -- expected ERROR 23505: The statement was aborted because it would have caused a duplicate key value in a unique or primary key constraint or unique index identified by 'SQL161213132957731' defined on 'TABLE_1'.
-INSERT INTO inc_backup_schema.TABLE_1(pk_col, nfk_col, ufk_col, nun_col, uun_col, inx_col) VALUES ('T', 'w', 'a', '1', '1', '(');
+INSERT INTO inc_backup_schema.TABLE_1(pk_col, nfk_col, ufk_col, nun_col, uun_col, inx_col) VALUES ('T', 'w', 'a', '8', '8', '(');
 -- expected ERROR 23503: Operation on table 'TABLE_1' caused a violation of foreign key constraint 'FK_EMPTY' for key (NFK_COL).  The statement has been rolled back.
-INSERT INTO inc_backup_schema.TABLE_1(pk_col, nfk_col, ufk_col, nun_col, uun_col, inx_col) VALUES ('T', 'a', 'w', '1', '1', '(');
+INSERT INTO inc_backup_schema.TABLE_1(pk_col, nfk_col, ufk_col, nun_col, uun_col, inx_col) VALUES ('T', 'a', 'w', '8', '8', '(');
 -- expected ERROR 23503: Operation on table 'TABLE_1' caused a violation of foreign key constraint 'SQL161213132940800' for key (UFK_COL).  The statement has been rolled back.
 
 
 SELECT count(*) from sys.SYSCONSTRAINTS where type in ('P', 'U', 'F') and tableid in (SELECT tableid from sys.SYSTABLES where tablename = 'TABLE_1') and schemaid in (SELECT SCHEMAID from sys.SYSSCHEMAS WHERE SCHEMANAME = 'SPLICE');
 -- 5 expected
-INSERT INTO TABLE_1(pk_col, nfk_col, ufk_col, nun_col, uun_col, inx_col) VALUES (NULL, 'a', 'a', '1', '1', '(');
+INSERT INTO TABLE_1(pk_col, nfk_col, ufk_col, nun_col, uun_col, inx_col) VALUES (NULL, 'a', 'a', '8', '8', '(');
 -- expected ERROR 23502: Column 'PK_COL' cannot accept a NULL value.
-INSERT INTO TABLE_1(pk_col, nfk_col, ufk_col, nun_col, uun_col, inx_col) VALUES ('T', 'a', 'a', '1', '4', '(');
+INSERT INTO TABLE_1(pk_col, nfk_col, ufk_col, nun_col, uun_col, inx_col) VALUES ('T', 'a', 'a', '1', '8', '(');
 -- expected ERROR 23505: The statement was aborted because it would have caused a duplicate key value in a unique or primary key constraint or unique index identified by 'UN_NULLS' defined on 'TABLE_1'.
-INSERT INTO TABLE_1(pk_col, nfk_col, ufk_col, nun_col, uun_col, inx_col) VALUES ('T', 'a', 'a', '4', '1', '(');
+INSERT INTO TABLE_1(pk_col, nfk_col, ufk_col, nun_col, uun_col, inx_col) VALUES ('T', 'a', 'a', '8', '1', '(');
 -- expected ERROR 23505: The statement was aborted because it would have caused a duplicate key value in a unique or primary key constraint or unique index identified by 'SQL161213132957731' defined on 'TABLE_1'.
-INSERT INTO TABLE_1(pk_col, nfk_col, ufk_col, nun_col, uun_col, inx_col) VALUES ('T', 'w', 'a', '1', '1', '(');
+INSERT INTO TABLE_1(pk_col, nfk_col, ufk_col, nun_col, uun_col, inx_col) VALUES ('T', 'w', 'a', '8', '8', '(');
 -- expected ERROR 23503: Operation on table 'TABLE_1' caused a violation of foreign key constraint 'FK_EMPTY' for key (NFK_COL).  The statement has been rolled back.
-INSERT INTO TABLE_1(pk_col, nfk_col, ufk_col, nun_col, uun_col, inx_col) VALUES ('T', 'a', 'w', '1', '1', '(');
+INSERT INTO TABLE_1(pk_col, nfk_col, ufk_col, nun_col, uun_col, inx_col) VALUES ('T', 'a', 'w', '8', '8', '(');
 -- expected ERROR 23503: Operation on table 'TABLE_1' caused a violation of foreign key constraint 'SQL161213132940800' for key (UFK_COL).  The statement has been rolled back.
 
 
