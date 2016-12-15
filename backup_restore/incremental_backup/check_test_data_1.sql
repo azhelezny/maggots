@@ -91,7 +91,28 @@ SELECT count(*) from sys.SYSALIASES where alias in ('GET_ABS_1', 'GET_ABS_2', 'G
 -- expected 0
 
 select INC_BACKUP_SCHEMA.GET_ABS_0(-1) from INC_BACKUP_SCHEMA.fk_table;
+-- expected data
+
+select INC_BACKUP_SCHEMA.GET_ABS_4(-1) from INC_BACKUP_SCHEMA.fk_table;
+-- expected no function
+select INC_BACKUP_SCHEMA.GET_ABS_3(-1) from INC_BACKUP_SCHEMA.fk_table;
+-- expected no function
+select INC_BACKUP_SCHEMA.GET_ABS_2(-1) from INC_BACKUP_SCHEMA.fk_table;
+-- expected no function
+select INC_BACKUP_SCHEMA.GET_ABS_1(-1) from INC_BACKUP_SCHEMA.fk_table;
+-- expected no function
+
 select GET_ABS_0(-1) from INC_BACKUP_SCHEMA.fk_table;
+-- expected data
+
+select GET_ABS_4(-1) from INC_BACKUP_SCHEMA.fk_table;
+-- expected no function
+select GET_ABS_3(-1) from INC_BACKUP_SCHEMA.fk_table;
+-- expected no function
+select GET_ABS_2(-1) from INC_BACKUP_SCHEMA.fk_table;
+-- expected no function
+select GET_ABS_1(-1) from INC_BACKUP_SCHEMA.fk_table;
+-- expected no function
 
 SELECT * FROM TABLE (READ_CUSTOM_MAIN_TYPES_0()) b order by it_c, vc_c, db_c, dc_c, dt_c desc;
 -- expected some table with random data
