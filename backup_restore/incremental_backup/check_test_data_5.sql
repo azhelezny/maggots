@@ -281,6 +281,8 @@ SELECT * FROM TABLE (READ_CUSTOM_MAIN_TYPES_2()) b order by it_c, vc_c, db_c, dc
 SELECT * FROM TABLE (READ_CUSTOM_MAIN_TYPES_3()) b order by it_c, vc_c, db_c, dc_c, dt_c desc;
 -- expected ERROR 42ZB4: 'SPLICE'.READ_CUSTOM_MAIN_TYPES_4' does not identify a table function.
 
+/*Disabled due to DB-5715
+
 -- EXTERNAL TABLE
 SELECT * FROM EXT_ORC_0 order by 1;
 -- expected: 7 rows
@@ -292,5 +294,6 @@ SELECT * FROM EXT_ORC_3 order by 1;
 -- expected: 4 rows
 SELECT * FROM EXT_ORC_4 order by 1;
 -- expected: 3 rows
+*/
 
 ;

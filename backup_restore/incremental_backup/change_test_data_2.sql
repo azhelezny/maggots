@@ -125,7 +125,12 @@ READS SQL DATA
 EXTERNAL NAME 'main.MainTypesVTI.getMainTypesVTI';
 
 -- to check SELECT * FROM TABLE (READ_CUSTOM_MAIN_TYPES_2()) b order by it_c, vc_c, db_c, dc_c, dt_c desc;
+
+/*Disabled due to DB-5715
 --EXTERNAL TABLE
 
 CREATE EXTERNAL TABLE EXT_ORC_2 (id INT) STORED AS ORC location '/tmp/testdb/sandbox/2';
 INSERT INTO EXT_ORC_2 values (1),(2),(3);
+*/
+
+;
