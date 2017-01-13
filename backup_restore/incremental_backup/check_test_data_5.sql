@@ -1,4 +1,139 @@
 -- CHECK
+-- SYNONYMS
+SELECT * FROM SY_CUSTOM_1;
+-- expected 1
+SELECT * FROM SY_CUSTOM_5;
+-- expected 1
+
+
+SELECT * FROM SY_CUSTOM_0;
+-- expected ERROR 42X05: Table/View 'SY_CUSTOM_2' does not exist.
+SELECT * FROM SY_CUSTOM_2;
+-- expected ERROR 42X05: Table/View 'SY_CUSTOM_2' does not exist.
+SELECT * FROM SY_CUSTOM_3;
+-- expected ERROR 42X05: Table/View 'SY_CUSTOM_2' does not exist.
+SELECT * FROM SY_CUSTOM_4;
+-- expected ERROR 42X05: Table/View 'SY_CUSTOM_2' does not exist.
+
+SELECT * FROM SY_DEFAULT_1;
+-- expected 2
+SELECT * FROM SY_DEFAULT_5;
+-- expected 2
+
+SELECT * FROM SY_DEFAULT_0;
+-- expected ERROR 42X05: Table/View 'SY_CUSTOM_2' does not exist.
+SELECT * FROM SY_DEFAULT_2;
+-- expected ERROR 42X05: Table/View 'SY_CUSTOM_2' does not exist.
+SELECT * FROM SY_DEFAULT_3;
+-- expected ERROR 42X05: Table/View 'SY_CUSTOM_2' does not exist.
+SELECT * FROM SY_DEFAULT_4;
+-- expected ERROR 42X05: Table/View 'SY_CUSTOM_2' does not exist.
+
+-- SEQUENCES
+
+SELECT count(*) from sys.SYSSEQUENCES where sequencename in ('SE_1', 'SE_5');
+-- ecpected 2
+SELECT count(*) from sys.SYSSEQUENCES where sequencename in ('SE_0', 'SE_2', 'SE_3', 'SE_4');
+-- ecpected 0
+
+VALUES (NEXT VALUE for SE_1);
+-- expected 104
+VALUES (NEXT VALUE for SE_5);
+-- expected 500
+
+/*
+Disabled due to 
+VALUES (NEXT VALUE for SE_0);
+-- expected ERROR_SQEUENCE
+VALUES (NEXT VALUE for SE_2);
+-- expected ERROR_SQEUENCE
+VALUES (NEXT VALUE for SE_4);
+-- expected ERROR_SQEUENCE
+VALUES (NEXT VALUE for SE_5);
+-- expected ERROR_SQEUENCE
+*/
+-- USERS and ROLES
+
+SELECT count(USERNAME) from sys.SYSUSERS where USERNAME in ('USER_0', 'USER_4');
+-- expected 3
+SELECT count(USERNAME) from sys.SYSUSERS where USERNAME in ('USER_1', 'USER_2', 'USER_3');
+-- expected 0
+
+SELECT count(*) from sys.SYSROLES where ROLEID in ('ROLE_0', 'ROLE_4') and GRANTEE != 'SPLICE';
+-- expected 3
+SELECT count(*) from sys.SYSROLES where ROLEID in ('ROLE_1', 'ROLE_2', 'ROLE_3');
+-- expected 0
+
+connect 'jdbc:splice://localhost:1527/splicedb;user=user_2;password=user_1';
+-- expected ERROR 08004: Connection authentication failure occurred.  Reason: userid or password invalid.
+connect 'jdbc:splice://localhost:1527/splicedb;user=user_2;password=user_2';
+-- expected ERROR 08004: Connection authentication failure occurred.  Reason: userid or password invalid.
+connect 'jdbc:splice://localhost:1527/splicedb;user=user_3;password=user_3';
+-- expected ERROR 08004: Connection authentication failure occurred.  Reason: userid or password invalid.
+
+connect 'jdbc:splice://localhost:1527/splicedb;user=user_0;password=user_0';
+
+SELECT * FROM INC_BACKUP_SCHEMA.TUSERS_0;
+--expected 0
+SELECT * FROM INC_BACKUP_SCHEMA.TUSERS_1;
+--expected 1
+SELECT * FROM INC_BACKUP_SCHEMA.TUSERS_2;
+--expected 2
+SELECT * FROM INC_BACKUP_SCHEMA.TUSERS_3;
+--expected 3
+SELECT * FROM INC_BACKUP_SCHEMA.TUSERS_4;
+--expected 4
+
+SET ROLE role_0;
+
+SELECT * FROM SPLICE.TROLES_0;
+--expected 0
+SELECT * FROM SPLICE.TROLES_1;
+--expected 1
+SELECT * FROM SPLICE.TROLES_2;
+--expected 2
+SELECT * FROM SPLICE.TROLES_3;
+--expected 3
+SELECT * FROM SPLICE.TROLES_4;
+--expected 4
+
+connect 'jdbc:splice://localhost:1527/splicedb;user=user_4;password=user_4';
+
+SELECT * FROM INC_BACKUP_SCHEMA.TUSERS_4;
+--expected 4
+SELECT * FROM INC_BACKUP_SCHEMA.TUSERS_0;
+--expected ERROR 42502: User 'USER_4' does not have SELECT permission on column 'I' of table 'INC_BACKUP_SCHEMA'.'TUSERS_0'.
+SELECT * FROM INC_BACKUP_SCHEMA.TUSERS_1;
+--expected ERROR 42502: User 'USER_4' does not have SELECT permission on column 'I' of table 'INC_BACKUP_SCHEMA'.'TUSERS_1'.
+SELECT * FROM INC_BACKUP_SCHEMA.TUSERS_2;
+--expected ERROR 42502: User 'USER_4' does not have SELECT permission on column 'I' of table 'INC_BACKUP_SCHEMA'.'TUSERS_2'.
+SELECT * FROM INC_BACKUP_SCHEMA.TUSERS_3;
+--expected ERROR 42502: User 'USER_4' does not have SELECT permission on column 'I' of table 'INC_BACKUP_SCHEMA'.'TUSERS_3'.
+
+SET ROLE role_4;
+
+SELECT * FROM SPLICE.TROLES_4;
+--expected 4
+SELECT * FROM SPLICE.TROLES_0;
+--expected ERROR 42502: User 'USER_4' does not have SELECT permission on column 'I' of table 'SPLICE'.'TROLES_0'.
+SELECT * FROM SPLICE.TROLES_1;
+--expected ERROR 42502: User 'USER_4' does not have SELECT permission on column 'I' of table 'SPLICE'.'TROLES_1'.
+SELECT * FROM SPLICE.TROLES_2;
+--expected ERROR 42502: User 'USER_4' does not have SELECT permission on column 'I' of table 'SPLICE'.'TROLES_2'.
+SELECT * FROM SPLICE.TROLES_3;
+--expected ERROR 42502: User 'USER_4' does not have SELECT permission on column 'I' of table 'SPLICE'.'TROLES_3'.
+
+SET ROLE role_0;
+--expected ERROR 0P000: Invalid role specification, role not granted to current user or PUBLIC: 'ROLE_0'.
+SET ROLE role_1;
+--expected ERROR 0P000: Invalid role specification, role does not exist: 'ROLE_1'.
+SET ROLE role_2;
+--expected ERROR 0P000: Invalid role specification, role does not exist: 'ROLE_2'.
+SET ROLE role_3;
+--expected ERROR 0P000: Invalid role specification, role does not exist: 'ROLE_3'.
+
+connect 'jdbc:splice://localhost:1527/splicedb;user=splice;password=admin';
+
 -- TABLES
 
 SELECT count(*) from INC_BACKUP_SCHEMA.FK_TABLE;
