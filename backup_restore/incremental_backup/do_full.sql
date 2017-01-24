@@ -1,0 +1,1 @@
+call SYSCS_UTIL.SYSCS_BACKUP_DATABASE('/automation/incremental', 'full');
