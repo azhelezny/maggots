@@ -1,0 +1,22 @@
+select count(*) from sys.systables where tablename in ('WIDE_TABLE_0', 'WIDE_TABLE_1') and schemaid in (select schemaid from sys.sysschemas where schemaname = 'INC_BACKUP_SCHEMA');
+-- expected 2 
+select count(*) from sys.systables where tablename in ('WIDE_TABLE_2', 'WIDE_TABLE_3' ) and schemaid in (select schemaid from sys.sysschemas where schemaname = 'INC_BACKUP_SCHEMA');
+-- expected 0
+
+select cl_1, cl_2, cl_3, cl_4, cl_5, cl_6, cl_7, cl_8, cl_9, cl_10, cl_11, cl_12, cl_13, cl_14, cl_15, cl_16, cl_17  from INC_BACKUP_SCHEMA.WIDE_TABLE_0 order by 1 asc;
+-- expected:
+-- CL_1 |CL_2 |CL_3                                                                                                                                                                                                                                                            |CL_4    |CL_5      |CL_6    |CL_7                         |CL_8                |CL_9  |CL_10                 |CL_11        |CL_12                 |CL_13      |CL_14 |CL_15        |CL_16 |CL_17
+-- -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-- .aqQA|"(bs8|R].$"                                                                                                                                                                                                                                                           |E1      |8839-09-06|13:55:52|1970-01-09 05:39:30.031      |-1366688982311827471|44828 |0.7205868266082234    |0.94499046   |0.8192031             |1090005585 |12348 |0.9377114    |-18560|false
+-- xb3on|b&Xpp|QGFtu                                                                                                                                                                                                                                                           |98      |9161-12-04|21:40:16|1970-01-20 12:49:05.015      |-2010986424305435594|94407 |0.5260820746660415    |0.65892124   |0.30800515            |738714100  |1205  |0.007087469  |2913  |true 
+
+select cl_1, cl_2, cl_3, cl_4, cl_5, cl_6, cl_7, cl_8, cl_9, cl_10, cl_11, cl_12, cl_13, cl_14, cl_15, cl_16, cl_17  from INC_BACKUP_SCHEMA.WIDE_TABLE_1 order by 1 asc;
+-- expected 
+-- CL_1 |CL_2 |CL_3                                                                                                                                                                                                                                                            |CL_4    |CL_5      |CL_6    |CL_7                         |CL_8                |CL_9  |CL_10                 |CL_11        |CL_12                 |CL_13      |CL_14 |CL_15        |CL_16 |CL_17
+-- -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-- Jo}VP| )8Ku|Ifcm|                                                                                                                                                                                                                                                           |EF      |6432-01-26|04:01:30|1970-01-25 20:12:12.548      |-8162787667901308605|58978 |0.15362547758906475   |0.9856385    |0.9426545             |1727480582 |8037  |0.3043301    |6312  |true 
+
+select cl_1, cl_2, cl_3, cl_4, cl_5, cl_6, cl_7, cl_8, cl_9, cl_10, cl_11, cl_12, cl_13, cl_14, cl_15, cl_16, cl_17  from INC_BACKUP_SCHEMA.WIDE_TABLE_2 order by 1 asc;
+-- ecpacted ERROR 42X05: Table/View 'INC_BACKUP_SCHEMA.WIDE_TABLE_2' does not exist.
+select cl_1, cl_2, cl_3, cl_4, cl_5, cl_6, cl_7, cl_8, cl_9, cl_10, cl_11, cl_12, cl_13, cl_14, cl_15, cl_16, cl_17  from INC_BACKUP_SCHEMA.WIDE_TABLE_3 order by 1 asc;
+-- ecpacted ERROR 42X05: Table/View 'INC_BACKUP_SCHEMA.WIDE_TABLE_3' does not exist.
