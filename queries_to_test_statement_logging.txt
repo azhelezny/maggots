@@ -1,0 +1,59 @@
+sudo -su mapr hadoop fs -rm -r -f -skipTrash /tmp/export
+sudo -su mapr hadoop fs -mkdir -p /tmp/export
+sudo -su mapr hadoop fs -chmod 777 /tmp/export
+
+
+show tables;
+
+show users;
+
+CALL SYSCS_UTIL.SYSCS_GET_ALL_PROPERTIES();
+
+select * from sys.systables;
+
+create table test_t1 (id INT, a CHAR(10));
+
+insert into test_t1 values (1, 'one'), (2, 'two'); 
+
+select * from test_t1;
+
+insert into test_t1 select * from test_t1;
+
+insert into test_t1 (10, null), (null, 'twenty'));
+
+select * from test_t1;
+
+create index test_t1_idx on test_t1(id,a);
+
+select * from test_t1;
+
+create synonym test_t1_synoym for test_t1;
+
+select * from test_t1_synoym;
+
+create view test_t1_view as select * from test_t1; 
+
+select * from test_t1_view; 
+
+select sqrt(id) from test_t1;
+
+select floor(id) from test_t1;
+
+select UCASE(a) from test_t1; 
+
+EXPORT('/tmp/export', false, null, null, ',', '''') SELECT * from test_t1;
+
+create table test_t2 (id INT, a CHAR(10));
+CALL SYSCS_UTIL.IMPORT_DATA('SPLICE', 'test_t2', , '/tmp/export', ',', '''', '', null, null, -1, '/tmp', true, null)
+
+create table test_t3 as select * from test_t1
+
+delete * from test_t2;
+
+update test_t1 set id = 1000 where a = 'one';
+
+drop table test_t1;
+
+create table test_t5 (id INT, a CHAR(10));
+
+insert into test_t1 values (100, 'one'), (200, 'two'); 
